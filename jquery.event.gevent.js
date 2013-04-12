@@ -1,12 +1,13 @@
 /*
  * jQuery global event plugin (gevent)
- * http://www.dynaorg.com/jquery/uriAnchor/
  *
- * Version 0.1
+ * Copyright (c) 2013 Michael S. Mikowski
+ * (mike[dot]mikowski[at]gmail[dotcom])
  *
- * Copyright (c) 2011, 2012 Michael S. Mikowski
  * Dual licensed under the MIT or GPL Version 2
  * http://jquery.org/license
+ *
+ * Version 0.1 - initial release
  *
 */
 
@@ -16,7 +17,6 @@
   regexp : true, sloppy  : true, vars     : false,
   white  : true
 */
-
 /*global jQuery */
 
 (function ( $ ) {
@@ -31,13 +31,19 @@
 
     //------------------- BEGIN PUBLIC METHODS -------------------
     // BEGIN public method /publishEvent/
-    // Purpose     : TODO
-    // Arguments   : positional -
-    //   * 0 ( event_name )   : The event name to subscribe
-    // Settings    : none
-    // Returns     : true on success, false if no subscription
-    // Throws      : none
-    // Discussion  : TODO
+    // Example  :
+    //   $.gevent.publish(
+    //     'spa-model-msg-receive',
+    //     [ { user : 'fred', msg : 'Hi gang' } ]
+    //   );
+    // Purpose  :
+    //   Publish an event with an optional list of arguments
+    //   which a subscribed handler will receive after the event object.
+    // Arguments (positional)
+    //   * 0 ( event_name )  - The global event name
+    //   * 2 ( data_list )   - Optional list of arguments
+    // Throws   : none
+    // Returns  : none
     //
     publishEvent = function ( event_name, data_list ) {
       if ( ! $customSubMap[ event_name ] ){ return false; }
@@ -50,17 +56,23 @@
       $customSubMap[ event_name ].trigger( event_name );
       return true;
     };
+    // END public method /publishEvent/
 
     // BEGIN public method /subscribeEvent/
-    // Purpose     : TODO
-    // Arguments   : positional -
-    //   * 0 ( $collection ) : jquery collection to subscribe
-    //   * 1 ( event_name )  : The event name to subscribe
-    //   * 2 ( fn )          : The subscribed function
-    // Settings    : none
-    // Returns     : none
-    // Throws      : none
-    // Discussion  : TODO
+    // Example  :
+    //   $.gevent.subscribe(
+    //     $( '#msg' ),
+    //     'spa-msg-receive',
+    //     onModelMsgReceive
+    //   );
+    // Purpose  :
+    //   Subscribe a function to a published event on a jQuery collection
+    // Arguments (positional)
+    //   * 0 ( $collection ) - The jQuery collection on which to bind event
+    //   * 1 ( event_name )  - The global event name
+    //   * 2 ( fn ) - The function to bound to the event on the collection
+    // Throws   : none
+    // Returns  : none
     //
     subscribeEvent = function ( $collection, event_name, fn ) {
       $collection.on( event_name, fn );
@@ -76,15 +88,18 @@
     // END public method /subscribeEvent/
 
     // BEGIN public method /unsubscribeEvent/
-    // Purpose     : TODO
-    // Arguments   : positional -
-    //   * 0 ( $collection ) : jquery collection to unsubscribe
-    //   * 1 ( event_name )  : The event name to unsubscribe
-    // Settings    : none
-    // Returns     : true on success, false if no subscription
-    // Returns     : none
-    // Throws      : none
-    // Discussion  : TODO
+    // Example  :
+    //   $.gevent.unsubscribe(
+    //     $( '#msg' ),
+    //     'spa-model-msg-receive'
+    //   );
+    // Purpose  :
+    //   Remove a binding for the named event on a provided collection
+    // Arguments (positional)
+    //   * 0 ( $collection ) - The jQuery collection on which to bind event
+    //   * 1 ( event_name )  - The global event name
+    // Throws   : none
+    // Returns  : none
     //
     unsubscribeEvent = function ( $collection, event_name ) {
       if ( ! $customSubMap[ event_name ] ){ return false; }
@@ -99,6 +114,7 @@
       return true;
     };
     // END public method /unsubscribeEvent/
+    //------------------- END PUBLIC METHODS ---------------------
 
     // return public methods
     return {
@@ -106,6 +122,5 @@
       subscribe   : subscribeEvent,
       unsubscribe : unsubscribeEvent
     };
-    //------------------- END PUBLIC METHODS ---------------------
   }());
 }( jQuery ));
