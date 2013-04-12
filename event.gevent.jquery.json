@@ -1,5 +1,5 @@
 { "name"     : "event.gevent",
-  "version"  : "0.1.3",
+  "version"  : "0.1.4",
   "title"    : "Global event plugin",
   "author"   : {
     "name"  : "Michael S. Mikowski",
@@ -15,12 +15,13 @@
   ],
   "dependencies" : { "jquery" : ">=1.6.2" },
 
-  "description" : "Are you missing jQuery global events?  Here's a plugin for you.",
+  "description" : "Are you missing jQuery global events? There's a plugin for that.",
   "keywords" : [
     "event", "events", "global", "custom"
   ],
   "url"         : "https://github.com/mmikowski/jquery.event.gevent",
-  "bugs"        : "https://github.com/mmikowski/jquery.event.gevent/pulls",
+  "homepage"    : "https://github.com/mmikowski/jquery.event.gevent",
+  "bugs"        : "https://github.com/mmikowski/jquery.event.gevent/issues",
   "maintainers" : [
     { "name"  : "Michael S. Mikowski",
       "email" : "mike.mikowski@gmail.com"

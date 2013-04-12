@@ -14,7 +14,7 @@ to jQuery 1.9.
 Dual licensed under the MIT or GPL Version 2
 http://jquery.org/license
 
-### Version 0.1.3 ###
+### Version 0.1.4 ###
 This is the first release.
 I have tested with jQuery 1.7.2 and 1.9.1, although
 not extensively.  Be warned, there may be lurking bugs.
