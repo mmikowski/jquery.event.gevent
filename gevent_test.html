@@ -1,0 +1,83 @@
+<!doctype html>
+
+<html>
+<head>
+  <!-- ie9+ rendering support for latest standards -->
+  <meta http-equiv="Content-Type" content="text/html;
+    charset=ISO-8859-1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>jQuery global event plugin tests</title>
+
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="./jquery.event.gevent-0.1.js" ></script>
+
+  <script>
+/*jslint         browser : true, continue : true,
+  devel  : true, indent  : 2,    maxerr   : 50,
+  newcap : true, nomen   : true, plusplus : true,
+  regexp : true, sloppy  : true, vars     : false,
+  white  : true
+*/
+
+/*global $ */
+
+    var showEvent1, showEvent2, showEvent3, showEvent4;
+
+    showEvent1 = function ( event ){
+      console.log( 'e1 event published', arguments );
+    };
+
+    showEvent2 = function ( event ){
+      console.log( 'e2 event published', arguments );
+    };
+
+    showEvent3 = function ( event ){
+      console.log( 'e3 event published', arguments );
+    };
+
+    showEvent4 = function ( event ){
+      console.log( 'e4 event published', arguments );
+    };
+
+    $( document ).ready( function(){
+      $.gevent.subscribe( $( '#div1' ),  'e1', showEvent1 )
+       .gevent.subscribe( $( '#div2' ),  'e2', showEvent2 )
+       .gevent.subscribe( $( '#div3' ),  'e3', showEvent3 )
+       .gevent.subscribe( $( '#div4a' ), 'e4', showEvent4 )
+       .gevent.subscribe( $( '#div4b' ), 'e4', showEvent4 )
+       .gevent.subscribe( $( '#div4c' ), 'e4', showEvent4 );
+
+      $.gevent.publish( 'e1' );
+      $.gevent.publish( 'e2', [ 'fred' ] );
+      $.gevent.publish( 'e3', [ 'barney', { barney : 'male' } ] );
+
+      console.log( '\n>>> should show 3' );
+      $.gevent.publish( 'e4', [ 'wilma',  { wilma  : 'female' } ] );
+
+      $.gevent.unsubscribe( $( '#div4a' ), 'e4' );
+      console.log( '\n>>> should show 2' );
+      $.gevent.publish( 'e4', [ 'should show 2',  { wilma  : 'female' } ] );
+
+      $.gevent.unsubscribe( $( '#div4b' ), 'e4' );
+      console.log( '\n>>> should show 1' );
+      $.gevent.publish( 'e4', [ 'should show 1',  { wilma  : 'female' } ] );
+
+      $.gevent.unsubscribe( $( '#div4c' ), 'e4' );
+      console.log( '\n>>> should show 0' );
+      $.gevent.publish( 'e4', [ 'should not show',  { wilma  : 'female' } ] );
+    });
+  </script>
+
+</head>
+<body>
+<div id="spa">
+  <div id="div1"></div>
+  <div id="div2"></div>
+  <div id="div3"></div>
+  <div id="div4a"></div>
+  <div id="div4b"></div>
+  <div id="div4c"></div>
+</div>
+</body>
+</html>
