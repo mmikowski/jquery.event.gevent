@@ -17,7 +17,7 @@
 
   "description" : "Are you missing jQuery global events (also called custom events)? There's a plugin for that.",
   "keywords" : [
-    "event", "events", "global", "custom"
+    "event", "events", "global", "custom", "bind"
   ],
   "url"         : "https://github.com/mmikowski/jquery.event.gevent",
   "homepage"    : "https://github.com/mmikowski/jquery.event.gevent",
