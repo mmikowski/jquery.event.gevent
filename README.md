@@ -24,8 +24,8 @@ Allows passing non-array data as second argument to publish.
 When this occurs, the data variable is passed as the second argument
 (after the event object) to the subscribed functions.
 
-### Version 0.1.7 ###
-Changed name on jQuery plugin registry.
+### Version 0.1.7, 0.1.8 ###
+Changed manifests for jQuery plugin registry.
 
 ### Testing ###
 I have tested with jQuery 1.7.2 and 1.9.1, although
