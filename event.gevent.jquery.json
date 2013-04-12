@@ -1,0 +1,29 @@
+{ "name"     : "event.gevent",
+  "version"  : "0.1.1",
+  "title"    : "Global event plugin",
+  "author"   : {
+    "name"  : "Michael S. Mikowski",
+    "email" : "mike.mikowski@gmail.com",
+  },
+  "licenses" : [
+    { "type" : "MIT",
+      "url"  : "https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt"
+    },
+    { "type" : "GPLv2",
+      "url"  : "http://www.gnu.org/licenses/gpl-2.0.html"
+    }
+  ],
+  "dependencies" : { "jquery" : ">=1.6.2" },
+
+  "description" : "Are you missing jQuery global events?  Here's a plugin for you.",
+  "keywords" : [
+    "event", "events", "global", "custom"
+  ],
+  "url"         : "https://github.com/mmikowski/jquery.event.gevent",
+  "bugs"        : "https://github.com/mmikowski/jquery.event.gevent/pulls",
+  "maintainers" : [
+    { "name"  : "Michael S. Mikowski",
+      "email" : "mike.mikowski@gmail.com",
+    }
+  ]
+}
