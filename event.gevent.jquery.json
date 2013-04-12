@@ -1,5 +1,5 @@
 { "name"     : "event.gevent",
-  "version"  : "0.1.8",
+  "version"  : "0.1.9",
   "title"    : "Global custom events",
   "author"   : {
     "name"  : "Michael S. Mikowski",

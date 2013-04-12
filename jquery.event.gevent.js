@@ -13,8 +13,9 @@
  *          a non-array variable as the second argument
  *          to a subscribed function (the first argument
  *          is always the event object).
- *  0.1.7 - documentation change
- *  0.1.8 - documentation change
+ *  0.1.7
+ *  0.1.8
+ *  0.1.9 - documentation changes
  *
 */
 
@@ -25,8 +26,6 @@
   white  : true
 */
 /*global jQuery */
-
-// this code passes jslint
 
 (function ( $ ) {
   'use strict';

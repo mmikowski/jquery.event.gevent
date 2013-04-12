@@ -1,9 +1,13 @@
 # jquery.event.gevent #
-=======================
 
 ## Summary ##
 A plugin that provides global custom events roughly as they 
-existed prior to their removal in jQuery 1.9.x
+existed prior to their removal in jQuery 1.9.x.
+
+This plugin was developed in response to the removal
+of global custom events from jQuery 1.9.x, and
+is featured in an appendix in the book
+[Single page web applications - JavaScript end-to-end](http://manning.com/mikowski).
 
 ## Release Notes ##
 
@@ -24,7 +28,7 @@ Allows passing non-array data as second argument to publish.
 When this occurs, the data variable is passed as the second argument
 (after the event object) to the subscribed functions.
 
-### Version 0.1.7, 0.1.8 ###
+### Version 0.1.7-9 ###
 Changed manifests for jQuery plugin registry.
 
 ### Testing ###
