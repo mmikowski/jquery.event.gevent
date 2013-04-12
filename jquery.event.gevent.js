@@ -7,7 +7,7 @@
  * Dual licensed under the MIT or GPL Version 2
  * http://jquery.org/license
  *
- * Version 0.1.4 - initial release
+ * Version 0.1.5 - initial release
  *
 */
 
@@ -18,6 +18,8 @@
   white  : true
 */
 /*global jQuery */
+
+// this code passes jslint
 
 (function ( $ ) {
   'use strict';

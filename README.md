@@ -14,11 +14,16 @@ to jQuery 1.9.
 Dual licensed under the MIT or GPL Version 2
 http://jquery.org/license
 
-### Version 0.1.4 ###
-This is the first release.
-I have tested with jQuery 1.7.2 and 1.9.1, although
-not extensively.  Be warned, there may be lurking bugs.
+### Versions 0.1.0 - 0.1.5 ###
+This is the first release.  The reason there
+are multiple version numbers is I was getting up to speed on the
+jquery plugin site.
 
+I have tested with jQuery 1.7.2 and 1.9.1, although
+not extensively. Be warned, there may be lurking bugs.
+I will be testing more extensively in the next few days.
+Until then, check out the test HTML page, and make sure to have
+your JavaScript console open.
 
 ## Examples ##
 
