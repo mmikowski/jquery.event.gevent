@@ -1,5 +1,5 @@
 /*
- * jQuery global event plugin (gevent)
+ * jQuery global custom event plugin (gevent)
  *
  * Copyright (c) 2013 Michael S. Mikowski
  * (mike[dot]mikowski[at]gmail[dotcom])
@@ -8,6 +8,10 @@
  * http://jquery.org/license
  *
  * Version 0.1.5 - initial release
+ * Version 0.1.6 - enhanced publishEvent (publish) method pass
+ *                 a non-array variable as the second argument
+ *                 to a subscribed function (the first argument
+ *                 is always the event object).
  *
 */
 
@@ -43,14 +47,20 @@
     //   which a subscribed handler will receive after the event object.
     // Arguments (positional)
     //   * 0 ( event_name )  - The global event name
-    //   * 2 ( data_list )   - Optional list of arguments
+    //   * 2 ( data )        - Optional data to be passed as argument(s)
+    //                         to subscribed functions after the event
+    //                         object. Provide an array for multiple
+    //                         arguments.
     // Throws   : none
     // Returns  : none
     //
-    publishEvent = function ( event_name, data_list ) {
+    publishEvent = function ( event_name, data ) {
+      var data_list;
+
       if ( ! $customSubMap[ event_name ] ){ return false; }
 
-      if ( data_list && Array.isArray( data_list ) ) {
+      if ( data ){
+        data_list = Array.isArray( data ) ? data : [ data ];
         $customSubMap[ event_name ].trigger( event_name, data_list );
         return true;
       }

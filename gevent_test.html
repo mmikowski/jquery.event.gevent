@@ -10,7 +10,7 @@
 
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="./jquery.event.gevent.js" ></script>
+  <script src="jquery.event.gevent.js"></script>
 
   <script>
 /*jslint         browser : true, continue : true,
@@ -41,12 +41,12 @@
     };
 
     $( document ).ready( function(){
-      $.gevent.subscribe( $( '#div1' ),  'e1', showEvent1 )
-       .gevent.subscribe( $( '#div2' ),  'e2', showEvent2 )
-       .gevent.subscribe( $( '#div3' ),  'e3', showEvent3 )
-       .gevent.subscribe( $( '#div4a' ), 'e4', showEvent4 )
-       .gevent.subscribe( $( '#div4b' ), 'e4', showEvent4 )
-       .gevent.subscribe( $( '#div4c' ), 'e4', showEvent4 );
+      $.gevent.subscribe( $( '#div1' ),  'e1', showEvent1 );
+      $.gevent.subscribe( $( '#div2' ),  'e2', showEvent2 );
+      $.gevent.subscribe( $( '#div3' ),  'e3', showEvent3 );
+      $.gevent.subscribe( $( '#div4a' ), 'e4', showEvent4 );
+      $.gevent.subscribe( $( '#div4b' ), 'e4', showEvent4 );
+      $.gevent.subscribe( $( '#div4c' ), 'e4', showEvent4 );
 
       $.gevent.publish( 'e1' );
       $.gevent.publish( 'e2', [ 'fred' ] );

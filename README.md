@@ -2,8 +2,8 @@
 =======================
 
 ## Summary ##
-A plugin that provides global events roughly as they existed prior
-to jQuery 1.9.
+A plugin that provides global custom events roughly as they 
+existed prior to their removal in jQuery 1.9.x
 
 ## Release Notes ##
 
@@ -19,11 +19,18 @@ This is the first release.  The reason there
 are multiple version numbers is I was getting up to speed on the
 jquery plugin site.
 
+### Version 0.1.6 ###
+Allows passing non-array data as second argument to publish.
+When this occurs, the data variable is passed as the second argument
+(after the event object) to the subscribed functions.
+
+### Testing ###
+
 I have tested with jQuery 1.7.2 and 1.9.1, although
 not extensively. Be warned, there may be lurking bugs.
 I will be testing more extensively in the next few days.
-Until then, check out the test HTML page, and make sure to have
-your JavaScript console open.
+You may check out the test HTML page to see this in action.
+Make sure you have your JavaScript console open.
 
 ## Examples ##
 
@@ -56,7 +63,6 @@ as I used global events as a robust mechanism to publish asynchronous
 changes from my model to the view. I wrote this plugin to restore
 this capability.
 
-
 ## Methods ##
 
 This documentation is extracted directly from the plugin source.
@@ -64,7 +70,6 @@ If the plugin is misbehaving, you may wish to review the source
 to ensure this documentation is up to date.
 
 ### $.gevent.publish ###
-
     // Example  :
     //   $.gevent.publish(
     //     'spa-model-msg-receive',
@@ -75,9 +80,12 @@ to ensure this documentation is up to date.
     //   which a subscribed handler will receive after the event object.
     // Arguments (positional)
     //   * 0 ( event_name )  - The global event name
-    //   * 2 ( data_list )   - Optional list of arguments
+    //   * 2 ( data )        - Optional data to be passed as argument(s)
+    //                         to subscribed functions. Provide an array for
+    //                         multiple arguments.
     // Throws   : none
     // Returns  : none
+    //
 
 ### $.gevent.subscribe ###
 
@@ -114,6 +122,14 @@ to ensure this documentation is up to date.
     // Returns  : none
     //
 
+## Error handling ##
+
+Like many other plugins, this code does not throw exceptions.
+Instead, it does its work quietly.  For example, you may "publish" an
+event that has no subscribers, although by definition nothing will
+receive it.  Or if you publish an event and pass in something besides
+an array of arguments, it will convert it to an array.
+
 ## Other notes ##
 
 This is a global plugin, and therefore does not offer chaining. For example:
@@ -133,12 +149,14 @@ Sorry about that :)
 The [multicast plugin](http://plugins.jquery.com/multicast/) appears
 quite similar, although I don't believe it has one important, magical
 capability as this plugin: if an element has been deleted from the 
-DOM, no event will be processed.  An example is in order:
+DOM, no event will be processed.  As an example, you may open up the
+test HTML page, and then cut and paste the following into the JavaScript
+console, one step at a time:
 
-    // create a div 
+    // 1. Create a div 
     $('body').append( '<div id="msg"/>' );
 
-    // subscribe to event
+    // 2. Subscribe to an event
     $.gevent.subscribe(
       $( '#msg' ),
       'spa-model-msg-receive',
@@ -151,24 +169,24 @@ DOM, no event will be processed.  An example is in order:
       }
     );
 
-    // publish event
+    // 3. Publish the event
     $.gevent.publish(
       'spa-model-msg-receive',
       [ { user : 'fred', msg : 'Hi gang' } ]
     );
 
-    // you should see output in the JavaScript log
+    // 4. You should see output in the JavaScript log
 
-    // now delete the div
+    // 5. Delete the div where the event was subscribed on
     $( '#msg' ).remove();
 
-    // publish event
+    // 6. Now republish the event
     $.gevent.publish(
       'spa-model-msg-receive',
       [ { user : 'fred', msg : 'Hi gang' } ]
     );
 
-    // no event will be handled.  If you add
+    // 7. You should not see any output in the console.
     // back the '#msg' div, you need to rebind the event.
 
 I find this behavior very desirable.
@@ -176,6 +194,15 @@ I find this behavior very desirable.
 
 ## TODO ##
 
-Investigate out of date collections and remove them from the plugin.
+Investigate out of date collections and remove them from the plugin
+session storage. This can be done by looping through collections
+and checking if $collection.closest( 'body' ).length >= 1.
+
+## Contribute! ##
+
+If you want to help out, like all jQuery plugins this is hosted at
+GitHub.  Any improvements or suggestions are welcome!
+
+Cheers, Mike
 
 END
