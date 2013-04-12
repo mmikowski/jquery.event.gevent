@@ -1,9 +1,9 @@
 { "name"     : "event.gevent",
-  "version"  : "0.1.2",
+  "version"  : "0.1.3",
   "title"    : "Global event plugin",
   "author"   : {
     "name"  : "Michael S. Mikowski",
-    "email" : "mike.mikowski@gmail.com",
+    "email" : "mike.mikowski@gmail.com"
   },
   "licenses" : [
     { "type" : "MIT",
@@ -23,7 +23,7 @@
   "bugs"        : "https://github.com/mmikowski/jquery.event.gevent/pulls",
   "maintainers" : [
     { "name"  : "Michael S. Mikowski",
-      "email" : "mike.mikowski@gmail.com",
+      "email" : "mike.mikowski@gmail.com"
     }
   ]
 }
