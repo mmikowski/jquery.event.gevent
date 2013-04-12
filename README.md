@@ -165,7 +165,8 @@ Indeed, no subscribed function will be executed for any collection where
 the DOM elements are removed.
 
 This is very handy.  Let's say we want  `<div id='user'/>`, to show a
-username when a *name-change* event occurs. We can subscribe a funcion like so:
+username when a *name-change* event occurs. We can *subscribe* the *function*
+on the *collection* like so:
 
     $.gevent.subscribe( $( '#user' ), 'name-change', onNameChange );
 
@@ -216,17 +217,16 @@ the JavaScript console, one step at a time:
     // 7. We should not see any output in the console
     //    because the subscribed function is not invoked.
 
-I find this behavior very desirable.
 Note that if we add `<div id='msg'/>` to the DOM, we will need to
 resubscribe to the event if we want it to respond as before.
 
 ## TODO ##
 
-Investigate out of date collections and remove them from the plugin
-session storage. This can be done by looping through collections
-and checking `$collection.closest( 'body' ).length >= 1`
+- Investigate out of date collections and remove them from the plugin
+  session storage. This can be done by looping through collections
+  and checking `$collection.closest( 'body' ).length >= 1`
 
-Consider a resubscribe method.
+- Consider a resubscribe method.
 
 ## Contribute! ##
 
