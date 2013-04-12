@@ -1,5 +1,5 @@
 { "name"     : "event.gevent",
-  "version"  : "0.1.6",
+  "version"  : "0.1.7",
   "title"    : "Global custom events",
   "author"   : {
     "name"  : "Michael S. Mikowski",
@@ -15,7 +15,7 @@
   ],
   "dependencies" : { "jquery" : ">=1.6.2" },
 
-  "description" : "Are you missing jQuery global events (also called custom global events)? There's a plugin for that.",
+  "description" : "Are you missing jQuery global custom events? There's a plugin for that.",
   "keywords" : [
     "event", "events", "global", "custom", "bind"
   ],

@@ -7,11 +7,13 @@
  * Dual licensed under the MIT or GPL Version 2
  * http://jquery.org/license
  *
- * Version 0.1.5 - initial release
- * Version 0.1.6 - enhanced publishEvent (publish) method pass
- *                 a non-array variable as the second argument
- *                 to a subscribed function (the first argument
- *                 is always the event object).
+ * Versions
+ *  0.1.5 - initial release
+ *  0.1.6 - enhanced publishEvent (publish) method pass
+ *          a non-array variable as the second argument
+ *          to a subscribed function (the first argument
+ *          is always the event object).
+ *  0.1.7 - documentation change
  *
 */
 

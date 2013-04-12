@@ -24,8 +24,10 @@ Allows passing non-array data as second argument to publish.
 When this occurs, the data variable is passed as the second argument
 (after the event object) to the subscribed functions.
 
-### Testing ###
+### Version 0.1.7 ###
+Changed name on jQuery plugin registry.
 
+### Testing ###
 I have tested with jQuery 1.7.2 and 1.9.1, although
 not extensively. Be warned, there may be lurking bugs.
 I will be testing more extensively in the next few days.
@@ -56,9 +58,9 @@ Make sure you have your JavaScript console open.
 
 ## Overview ##
 
-Jquery 1.8.x and lower supported global events (also called
-'custom events'). Apparently these were not officially supported
-and have been removed as of jQuery 1.9. I found this disappointing
+Jquery 1.8.x and lower supported global custom events. 
+Apparently these were not officially supported and have been 
+removed as of jQuery 1.9. I found this disappointing
 as I used global events as a robust mechanism to publish asynchronous
 changes from my model to the view. I wrote this plugin to restore
 this capability.
@@ -67,8 +69,8 @@ this capability.
 
 - Always receive the event object as the first argument
 - The value of `this` is always the element upon which the event was
-  subscribed.  So, for example, you subscribe *on* `$('#msg')`
-  the value of `this` in the subscribed function will be the 
+  subscribed.  So, for example, you *subscribe* a *function* *on*
+  `$('#msg')` the value of `this` in the subscribed function will be the 
   DOM element `<div id="msg">`
 
 ## Methods ##
@@ -158,19 +160,19 @@ The [multicast plugin](http://plugins.jquery.com/multicast/) appears
 quite similar, although I don't believe it has one important, magical
 capability as this plugin: if we *subcribe* a *function* on a jQuery
 *collection*, and then *delete* from the DOM the element(s) in that 
-collecton from the DOM, the subscribe function will not be executed.
+collecton, the subscribed function will not be executed.
 Indeed, no subscribed function will be executed for any collection where
 the DOM elements are removed.
 
-This is very handy.  Let's say we want a `<div id='user'>`, to show a
+This is very handy.  Let's say we want  `<div id='user'/>`, to show a
 username when a *name-change* event occurs. We can subscribe a funcion like so:
 
     $.gevent.subscribe( $( '#user' ), 'name-change', onNameChange );
 
-Now when we publish the 'name-change' event, the `<div id='user>` exists
+Now when we publish the 'name-change' event, the `<div id='user/>` exists
 and so the onNameChange function is invoked.
 
-But later on we adjust the page we remove the `<div id='user'>` element from
+But later on we adjust the page we remove the `<div id='user'/>` element from
 the DOM.  Now the *function* *subscribed* on the *collection* will NOT be 
 invoked.  This is desired behavior.
 
@@ -222,7 +224,7 @@ resubscribe to the event if we want it to respond as before.
 
 Investigate out of date collections and remove them from the plugin
 session storage. This can be done by looping through collections
-and checking if $collection.closest( 'body' ).length >= 1.
+and checking `$collection.closest( 'body' ).length >= 1`
 
 Consider a resubscribe method.
 
