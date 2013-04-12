@@ -15,7 +15,7 @@
   ],
   "dependencies" : { "jquery" : ">=1.6.2" },
 
-  "description" : "Are you missing jQuery global events (also called custom events)? There's a plugin for that.",
+  "description" : "Are you missing jQuery global events (also called custom global events)? There's a plugin for that.",
   "keywords" : [
     "event", "events", "global", "custom", "bind"
   ],
