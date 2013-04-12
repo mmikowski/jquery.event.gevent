@@ -1,5 +1,5 @@
 { "name"     : "event.gevent",
-  "version"  : "0.1.1",
+  "version"  : "0.1.2",
   "title"    : "Global event plugin",
   "author"   : {
     "name"  : "Michael S. Mikowski",

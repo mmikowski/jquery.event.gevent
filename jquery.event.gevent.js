@@ -7,7 +7,7 @@
  * Dual licensed under the MIT or GPL Version 2
  * http://jquery.org/license
  *
- * Version 0.1 - initial release
+ * Version 0.1.2 - initial release
  *
 */
 
