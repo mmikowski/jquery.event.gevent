@@ -63,6 +63,14 @@ as I used global events as a robust mechanism to publish asynchronous
 changes from my model to the view. I wrote this plugin to restore
 this capability.
 
+*Remember* that subscribed functions:
+
+- Always receive the event object as the first argument
+- The value of `this` is always the element upon which the event was
+  subscribed.  So, for example, you subscribe *on* `$('#msg')`
+  the value of `this` in the subscribed function will be the 
+  DOM element `<div id="msg">`
+
 ## Methods ##
 
 This documentation is extracted directly from the plugin source.
@@ -148,10 +156,27 @@ Sorry about that :)
 
 The [multicast plugin](http://plugins.jquery.com/multicast/) appears
 quite similar, although I don't believe it has one important, magical
-capability as this plugin: if an element has been deleted from the 
-DOM, no event will be processed.  As an example, you may open up the
-test HTML page, and then cut and paste the following into the JavaScript
-console, one step at a time:
+capability as this plugin: if we *subcribe* a *function* on a jQuery
+*collection*, and then *delete* from the DOM the element(s) in that 
+collecton from the DOM, the subscribe function will not be executed.
+Indeed, no subscribed function will be executed for any collection where
+the DOM elements are removed.
+
+This is very handy.  Let's say we want a `<div id='user'>`, to show a
+username when a *name-change* event occurs. We can subscribe a funcion like so:
+
+    $.gevent.subscribe( $( '#user' ), 'name-change', onNameChange );
+
+Now when we publish the 'name-change' event, the `<div id='user>` exists
+and so the onNameChange function is invoked.
+
+But later on we adjust the page we remove the `<div id='user'>` element from
+the DOM.  Now the *function* *subscribed* on the *collection* will NOT be 
+invoked.  This is desired behavior.
+
+If you are adventurous, you may play along at home.
+Let's open the test HTML page, and then cut and paste the following into
+the JavaScript console, one step at a time:
 
     // 1. Create a div 
     $('body').append( '<div id="msg"/>' );
@@ -175,7 +200,7 @@ console, one step at a time:
       [ { user : 'fred', msg : 'Hi gang' } ]
     );
 
-    // 4. You should see output in the JavaScript log
+    // 4. We should see output in the JavaScript log
 
     // 5. Delete the div where the event was subscribed on
     $( '#msg' ).remove();
@@ -186,11 +211,12 @@ console, one step at a time:
       [ { user : 'fred', msg : 'Hi gang' } ]
     );
 
-    // 7. You should not see any output in the console.
-    // back the '#msg' div, you need to rebind the event.
+    // 7. We should not see any output in the console
+    //    because the subscribed function is not invoked.
 
 I find this behavior very desirable.
-
+Note that if we add `<div id='msg'/>` to the DOM, we will need to
+resubscribe to the event if we want it to respond as before.
 
 ## TODO ##
 
@@ -198,10 +224,13 @@ Investigate out of date collections and remove them from the plugin
 session storage. This can be done by looping through collections
 and checking if $collection.closest( 'body' ).length >= 1.
 
+Consider a resubscribe method.
+
 ## Contribute! ##
 
 If you want to help out, like all jQuery plugins this is hosted at
 GitHub.  Any improvements or suggestions are welcome!
+You can reach me at mike[dot]mikowski[at]gmail[dotcom].
 
 Cheers, Mike
 
