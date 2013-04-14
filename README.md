@@ -1,21 +1,12 @@
 # jquery.event.gevent #
 
 ## Summary ##
-
-A plugin that provides the ability to have a jQuery **collection**
-subscribe a **function** to a **global custom event**.  This plugin is featured in the book
-[Single page web applications - JavaScript end-to-end](http://manning.com/mikowski).
-Methods include **subscribe**, **publish**, and **unsubscribe**.
+A plugin that provides the ability to have a jQuery **collection** subscribe a **function** to a **global custom event**.  This plugin is featured in the book [Single page web applications - JavaScript end-to-end](http://manning.com/mikowski). Methods include **subscribe**, **publish**, and **unsubscribe**.
 
 ## Example ##
+Let's say we display various panels in our web page that show how many widgets Acme Inc. has manufactured and rejected on a given day. We occassionaly receive a messages from Acme's web service that tells us the revised widget reject count.
 
-Let's say we display various panels in our web page that show how many
-widgets Acme Inc. has manufactured and rejected on a given day. We occassionaly
-receive a messages from Acme's web service that tells us the revised
-widget reject count.
-
-With this plugin we can simply *publish* a `widget-reject` event and have all the panels
-update themselves:
+With this plugin we can simply *publish* a `widget-reject` event and have all the panels update themselves:
 
     // function to update reject panels
     var onWidgetReject = function ( event, reject_count ) {
@@ -31,11 +22,7 @@ update themselves:
     // publish the event (we now have 23 rejects)
     $.gevent.publish( 'widget-reject', 23 );
 
-This pub-sub mechanism is elegant and easy to create and maintain.  
-We can add or subtract panels at will.  Events published by a controller 
-may be used by many other modules without the tedium and tangle of callbacks.
-We have found it invaluable when building scalable Single Page web Applications
-(SPAs).
+This pub-sub mechanism is elegant and easy to create and maintain. We can add or subtract panels at will.  Events published by a controller may be used by many other modules without the tedium and tangle of callbacks. We have found it invaluable when building scalable Single Page web Applications (SPAs).
 
 ## Release Notes ##
 
@@ -47,33 +34,21 @@ Dual licensed under the MIT or GPL Version 2
 http://jquery.org/license
 
 ### Versions 0.1.0 - 0.1.5 ###
-This is the first release.  The reason there
-are multiple version numbers is I was getting up to speed on the
-jquery plugin site.
+This is the first release.  The reason there are multiple version numbers is I was getting up to speed on the jQuery plugin site.
 
 ### Version 0.1.6 ###
-Allows passing non-array data as second argument to publish.
-When this occurs, the data variable is used as the second argument
-(after the event object) to the subscribed functions.
+Allows passing non-array data as second argument to publish. When this occurs, the data variable is used as the second argument (after the event object) to the subscribed functions.
 
 ### Version 0.1.7-9 ###
-
 Changed manifests for jQuery plugin registry.
 
 ### Testing ###
 
-I have tested with jQuery 1.7.2 and 1.9.1.
-You may check out the test HTML page to see this in action.
-Make sure you have your JavaScript console open.
-
+I have tested with jQuery 1.7.2 and 1.9.1. You may check out the test HTML page to see this in action. Make sure you have your JavaScript console open.
 
 ## Overview ##
 
-Jquery 1.8.x and lower supported global custom events. 
-Apparently these were not officially supported and have been 
-removed as of jQuery 1.9. I found this disappointing
-as I used global events as a robust mechanism to publish asynchronous
-changes from my model to the view. 
+Jquery 1.8.x and lower supported global custom events. Apparently these were not officially supported and have been completely removed as of jQuery 1.9. I found this disappointing as I used global events as a robust mechanism to publish asynchronous changes from my model to the view. 
 
 I wrote this plugin to restore and improve this capability.
 
@@ -81,42 +56,26 @@ I wrote this plugin to restore and improve this capability.
 
 ### Function arguments ###
 
-jQuery *collections* subscribe a *function* to *global custom events*.
-This function:
+jQuery *collections* subscribe a *function* to *global custom events*. This function:
 
 - Always receive the event object as the first argument.
 - May receive additional arguments as provided by the *publish* invocation.
-- Sees the value of `this` as the element upon which the event was
-  subscribed.  If, for example, we have `$('#msg')` *subscribe* 
-  to a *global custom event*, the value of `this` in the handler *function* 
-  will be the DOM element `<div id="msg">`.
+- Sees the value of `this` as the element upon which the event was subscribed.  If, for example, we have `$('#msg')`*subscribe* to a *global custom event*, the value of `this` in the handler *function* will be the DOM element `<div id="msg">`.
 
 ### Subcribptions and deleted DOM elements ###
 
-A jQuery *collection* may subscribe a *function* to a *global custom event*.
-If we *delete* the DOM the element that had subscriptions, *no* subscribed functions
-will be executed for that element.  **This is desired behavior**
+A jQuery *collection* may subscribe a *function* to a *global custom event*. If we *delete* the DOM the element that had subscriptions, *no* subscribed functions will be executed for that element.  **This is desired behavior**
 
-Let's say we want  `<div id='user'/>`, to show a
-username when a *name-change* event occurs. We can have the *collection*
-subscribe the *function* `onNameChange` to a *global custom event* `name-change`
-like so:
+Let's say we want  `<div id='user'/>`, to show a username when a *name-change* event occurs. We can have the *collection* subscribe the *function* `onNameChange` to a *global custom event* `name-change` like so:
 
     $.gevent.subscribe( $( '#user' ), 'name-change', onNameChange );
 
-Now when we publish the 'name-change' event, the `<div id='user/>` exists
-and so the *function* ( `onNameChange` ) subscribed to the *event* `name-change`
-by the *collection* `$( '#user')` is invoked.
+Now when we publish the 'name-change' event, the `<div id='user/>` exists and so the *function* ( `onNameChange` ) subscribed to the *event* `name-change` by the *collection* `$( '#user')` is invoked.
 
-But later we adjust the page and remove the `<div id='user'/>` element from
-the DOM.  Now the *function* `onNameChange` subscribed to the *event* `name-change`
-by the *collection* `$( '#user' )` will **NOT** be invoked because the 
+But later we adjust the page and remove the `<div id='user'/>` element from the DOM.  Now the *function* `onNameChange` subscribed to the *event* `name-change` by the *collection* `$( '#user' )` will **NOT** be invoked because the 
 underlying DOM element has been removed.
 
-If you are adventurous, you may play along at home.
-Let's open the an HTML page that has jQuery 1.7+ and this event
-loaded (or use JSFiddle.com) and then cut and paste the following into
-the JavaScript console, one step at a time:
+If you are adventurous, you may play along at home. Let's open the an HTML page that has jQuery 1.9.1 and this event plubin loaded (or use JSFiddle.com) and then cut and paste the following into the JavaScript console, one step at a time:
 
     // 1. Create a div 
     $('body').append( '<div id="msg"/>' );
@@ -154,8 +113,7 @@ the JavaScript console, one step at a time:
     // 7. We should not see any output in the console
     //    because the subscribed function is not invoked.
 
-If we add `<div id='msg'/>` to the DOM after this example, we will need to
-resubscribe to the event if we want it to respond as before.
+If we add `<div id='msg'/>` to the DOM after this example, we will need to resubscribe to the event if we want it to respond as before.
 
 ## Methods ##
 
@@ -180,7 +138,6 @@ The methods documentation is extracted directly from the plugin source.
     //
 
 ### $.gevent.subscribe ###
-
     // Example  :
     //   $.gevent.subscribe(
     //     $( '#msg' ),
@@ -198,7 +155,6 @@ The methods documentation is extracted directly from the plugin source.
     //
 
 ### $.gevent.unsubscribe ###
-
     // BEGIN public method /unsubscribeEvent/
     // Example  :
     //   $.gevent.unsubscribe(
@@ -216,11 +172,7 @@ The methods documentation is extracted directly from the plugin source.
 
 ## Error handling ##
 
-Like many other plugins, this code does not throw exceptions.
-Instead, it does its work quietly. For example, you may "publish" an
-event that has no subscribers, although by definition nothing will
-receive it.  Or if you publish an event and pass in something besides
-an array of arguments, it will convert it to an array.
+Like many other plugins, this code does not throw exceptions. Instead, it does its work quietly. For example, you may "publish" an event that has no subscribers, although by definition nothing will receive it.  Or if you publish an event and pass in something besides an array of arguments, it will convert the variable into an array of one.
 
 ## More Examples ##
 
