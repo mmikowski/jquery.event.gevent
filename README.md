@@ -1,12 +1,9 @@
 # jquery.event.gevent #
 
 ## Summary ##
-A plugin that provides global custom events roughly as they 
-existed prior to their removal in jQuery 1.9.x.
-
-This plugin was developed in response to the removal
-of global custom events from jQuery 1.9.x, and
-is featured in an appendix in the book
+A plugin that provides the ability to have a jQuery *collection*
+subscribe to a *global custom event* and have a *function* handle
+the event when it occurs. This plugin is featured in the book
 [Single page web applications - JavaScript end-to-end](http://manning.com/mikowski).
 
 ## Release Notes ##
@@ -25,7 +22,7 @@ jquery plugin site.
 
 ### Version 0.1.6 ###
 Allows passing non-array data as second argument to publish.
-When this occurs, the data variable is passed as the second argument
+When this occurs, the data variable is used as the second argument
 (after the event object) to the subscribed functions.
 
 ### Version 0.1.7-9 ###
@@ -45,14 +42,13 @@ Make sure you have your JavaScript console open.
       onModelMsgReceive        // Handler function
     );
 
-
 ### Publish an event ###
     $.gevent.publish(
       'spa-model-msg-receive',
       [ { user : 'fred', msg : 'Hi gang' } ]
     );
 
-### Unsubscribe from event on '#msg' div ###
+### Unsubscribe from event on the '#msg' div ###
     $.gevent.unsubscribe(
       $( '#msg' ),         // jQuery selection
       'spa-model-msg-receive', // Event name
@@ -64,22 +60,93 @@ Jquery 1.8.x and lower supported global custom events.
 Apparently these were not officially supported and have been 
 removed as of jQuery 1.9. I found this disappointing
 as I used global events as a robust mechanism to publish asynchronous
-changes from my model to the view. I wrote this plugin to restore
-this capability.
+changes from my model to the view. 
 
-*Remember* that subscribed functions:
+I wrote this plugin to restore and improve this capability.
 
-- Always receive the event object as the first argument
-- The value of `this` is always the element upon which the event was
-  subscribed.  So, for example, you *subscribe* a *function* *on*
-  `$('#msg')` the value of `this` in the subscribed function will be the 
-  DOM element `<div id="msg">`
+## Discussion ##
+
+### Function arguments ###
+
+jQuery *collections* subscribe a *function* to *global custom events*.
+This function:
+
+- Always receive the event object as the first argument.
+- May receive additional arguments as provided by the *publish* invocation.
+- Sees the value of `this` as the element upon which the event was
+  subscribed.  If, for example, we have `$('#msg')` *subscribe* 
+  to a *global custom event*, the value of `this` in the handler *function* 
+  will be the DOM element `<div id="msg">`.
+
+### Subcribptions and deleted DOM elements ###
+
+A jQuery *collection* may subscribe a *function* to a *global custom event*.
+If we *delete* the DOM the element that had subscriptions, *no* subscribed functions
+will be executed for that element.  **This is desired behavior**
+
+Let's say we want  `<div id='user'/>`, to show a
+username when a *name-change* event occurs. We can have the *collection*
+subscribe the *function* `onNameChange` to a *global custom event* `name-change`
+like so:
+
+    $.gevent.subscribe( $( '#user' ), 'name-change', onNameChange );
+
+Now when we publish the 'name-change' event, the `<div id='user/>` exists
+and so the *function* ( `onNameChange` ) subscribed to the *event* `name-change`
+by the *collection* `$( '#user')` is invoked.
+
+But later we adjust the page and remove the `<div id='user'/>` element from
+the DOM.  Now the *function* `onNameChange` subscribed to the *event* `name-change`
+by the *collection* `$( '#user' )` will **NOT** be invoked because the 
+underlying DOM element has been removed.
+
+If you are adventurous, you may play along at home.
+Let's open the an HTML page that has jQuery 1.7+ and this event
+loaded (or use JSFiddle.com) and then cut and paste the following into
+the JavaScript console, one step at a time:
+
+    // 1. Create a div 
+    $('body').append( '<div id="msg"/>' );
+
+    // 2. Subscribe to an event
+    $.gevent.subscribe(
+      $( '#msg' ),
+      'spa-model-msg-receive',
+      function ( event, msg_map ) {
+        console.log(
+          'message received',
+          event,
+          msg_map
+        );
+      }
+    );
+
+    // 3. Publish the event
+    $.gevent.publish(
+      'spa-model-msg-receive',
+      [ { user : 'fred', msg : 'Hi gang' } ]
+    );
+
+    // 4. We should see output in the JavaScript log
+
+    // 5. Delete the div where the event was subscribed on
+    $( '#msg' ).remove();
+
+    // 6. Now republish the event
+    $.gevent.publish(
+      'spa-model-msg-receive',
+      [ { user : 'fred', msg : 'Hi gang' } ]
+    );
+
+    // 7. We should not see any output in the console
+    //    because the subscribed function is not invoked.
+
+If we add `<div id='msg'/>` to the DOM after this example, we will need to
+resubscribe to the event if we want it to respond as before.
 
 ## Methods ##
 
-This documentation is extracted directly from the plugin source.
-If the plugin is misbehaving, you may wish to review the source
-to ensure this documentation is up to date.
+The methods documentation is extracted directly from the plugin source.
 
 ### $.gevent.publish ###
     // Example  :
@@ -137,7 +204,7 @@ to ensure this documentation is up to date.
 ## Error handling ##
 
 Like many other plugins, this code does not throw exceptions.
-Instead, it does its work quietly.  For example, you may "publish" an
+Instead, it does its work quietly. For example, you may "publish" an
 event that has no subscribers, although by definition nothing will
 receive it.  Or if you publish an event and pass in something besides
 an array of arguments, it will convert it to an array.
@@ -158,69 +225,8 @@ Sorry about that :)
 
 ## See also ##
 
-The [multicast plugin](http://plugins.jquery.com/multicast/) appears
-quite similar, although I don't believe it has one important, magical
-capability as this plugin: if we *subcribe* a *function* on a jQuery
-*collection*, and then *delete* from the DOM the element(s) in that 
-collecton, the subscribed function will not be executed.
-Indeed, no subscribed function will be executed for any collection where
-the DOM elements are removed.
-
-This is very handy.  Let's say we want  `<div id='user'/>`, to show a
-username when a *name-change* event occurs. We can *subscribe* the *function*
-on the *collection* like so:
-
-    $.gevent.subscribe( $( '#user' ), 'name-change', onNameChange );
-
-Now when we publish the 'name-change' event, the `<div id='user/>` exists
-and so the onNameChange function is invoked.
-
-But later on we adjust the page we remove the `<div id='user'/>` element from
-the DOM.  Now the *function* *subscribed* on the *collection* will NOT be 
-invoked.  This is desired behavior.
-
-If you are adventurous, you may play along at home.
-Let's open the test HTML page, and then cut and paste the following into
-the JavaScript console, one step at a time:
-
-    // 1. Create a div 
-    $('body').append( '<div id="msg"/>' );
-
-    // 2. Subscribe to an event
-    $.gevent.subscribe(
-      $( '#msg' ),
-      'spa-model-msg-receive',
-      function ( event, msg_map ) {
-        console.log(
-          'message received',
-          event,
-          msg_map
-        );
-      }
-    );
-
-    // 3. Publish the event
-    $.gevent.publish(
-      'spa-model-msg-receive',
-      [ { user : 'fred', msg : 'Hi gang' } ]
-    );
-
-    // 4. We should see output in the JavaScript log
-
-    // 5. Delete the div where the event was subscribed on
-    $( '#msg' ).remove();
-
-    // 6. Now republish the event
-    $.gevent.publish(
-      'spa-model-msg-receive',
-      [ { user : 'fred', msg : 'Hi gang' } ]
-    );
-
-    // 7. We should not see any output in the console
-    //    because the subscribed function is not invoked.
-
-Note that if we add `<div id='msg'/>` to the DOM, we will need to
-resubscribe to the event if we want it to respond as before.
+The [multicast plugin](http://plugins.jquery.com/multicast/) is
+similar.
 
 ## TODO ##
 
