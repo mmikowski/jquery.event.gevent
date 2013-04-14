@@ -72,10 +72,9 @@ Let's say we want  `<div id='user'/>`, to show a username when a *name-change* e
 
 Now when we publish the 'name-change' event, the `<div id='user/>` exists and so the *function* ( `onNameChange` ) subscribed to the *event* `name-change` by the *collection* `$( '#user')` is invoked.
 
-But later we adjust the page and remove the `<div id='user'/>` element from the DOM.  Now the *function* `onNameChange` subscribed to the *event* `name-change` by the *collection* `$( '#user' )` will **NOT** be invoked because the 
-underlying DOM element has been removed.
+But later we adjust the page and remove the `$( '#user' )` collection, the *function* `onNameChange` subscribed to the *event* `name-change` by the *collection* `$( '#user' )` will **NOT** be invoked because the collection has been removed.
 
-If you are adventurous, you may play along at home. Let's open the an HTML page that has jQuery 1.9.1 and this event plubin loaded (or use JSFiddle.com) and then cut and paste the following into the JavaScript console, one step at a time:
+You may play along at home to see this happen. Let's open the an HTML page that has jQuery 1.9.1 and this plugin loaded (or use JSFiddle.com) and then cut and paste the following into the JavaScript console, one step at a time:
 
     // 1. Create a div 
     $('body').append( '<div id="msg"/>' );
@@ -172,7 +171,7 @@ The methods documentation is extracted directly from the plugin source.
 
 ## Error handling ##
 
-Like many other plugins, this code does not throw exceptions. Instead, it does its work quietly. For example, you may "publish" an event that has no subscribers, although by definition nothing will receive it.  Or if you publish an event and pass in something besides an array of arguments, it will convert the variable into an array of one.
+Like many other plugins, this code does not throw exceptions. Instead, it does its work quietly. For example, you may "publish" an event that has no subscribers, although by definition nothing will receive it. Or if you publish an event and pass in something besides an array of arguments, it will convert the variable into an array of one.
 
 ## More Examples ##
 
@@ -217,9 +216,11 @@ The [multicast plugin](http://plugins.jquery.com/multicast/).
 
 - Investigate out-of-date collections and remove them from the plugin
   session storage. This can be done by looping through collections
-  and checking `$collection.closest( 'body' ).length >= 1`
+  and checking `$collection.closest( 'body' ).length >= 1`.
 
 - Consider a resubscribe method.
+
+- Consider only allowing a collection subscribe a function to an event only once, at least as an option.
 
 ## Contribute! ##
 
@@ -228,6 +229,5 @@ GitHub.  Any improvements or suggestions are welcome!
 You can reach me at mike[dot]mikowski[at]gmail[dotcom].
 
 Cheers, Mike
-
 
 END
