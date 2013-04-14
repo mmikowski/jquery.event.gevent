@@ -39,7 +39,7 @@ This is the first release.  The reason there are multiple version numbers is I w
 ### Version 0.1.6 ###
 Allows passing non-array data as second argument to publish. When this occurs, the data variable is used as the second argument (after the event object) to the subscribed functions.
 
-### Version 0.1.7-9 ###
+### Version 0.1.7-10 ###
 Changed manifests for jQuery plugin registry.
 
 ### Testing ###
@@ -64,9 +64,9 @@ jQuery *collections* subscribe a *function* to *global custom events*. This func
 
 ### Subcribptions and deleted DOM elements ###
 
-A jQuery *collection* may subscribe a *function* to a *global custom event*. If we *delete* the DOM the element that had subscriptions, *no* subscribed functions will be executed for that element.  **This is desired behavior**
+A jQuery **collection** may subscribe a **function** to a **global custom event**. If we *delete* the **collection** that had subscriptions, **no** subscribed functions will be executed for that collection.  **This is desired behavior**
 
-Let's say we want  `<div id='user'/>`, to show a username when a *name-change* event occurs. We can have the *collection* subscribe the *function* `onNameChange` to a *global custom event* `name-change` like so:
+Let's say we want  `<div id='user'/>`, to show a username when a *name-change* event occurs. We can have the **collection** `$( '#user' )` subscribe the **function** `onNameChange` to a *global custom event* `name-change` like so:
 
     $.gevent.subscribe( $( '#user' ), 'name-change', onNameChange );
 
@@ -196,7 +196,7 @@ Like many other plugins, this code does not throw exceptions. Instead, it does i
 
 ## Other notes ##
 
-This is a global plugin, and therefore does not offer chaining. For example:
+This is a global jQuery plugin, and therefore does not offer chaining. For example:
 
     // DOES NOT WORK:
     //   $.gevent.subscribe(
@@ -214,13 +214,13 @@ The [multicast plugin](http://plugins.jquery.com/multicast/).
 
 ## TODO ##
 
-- Investigate out-of-date collections and remove them from the plugin
-  session storage. This can be done by looping through collections
-  and checking `$collection.closest( 'body' ).length >= 1`.
+- Investigate out-of-date collections and remove them from the plugin session storage. This can be done by looping through collections and checking `$collection.closest( 'body' ).length >= 1`.
 
 - Consider a resubscribe method.
 
 - Consider only allowing a collection subscribe a function to an event only once, at least as an option.
+
+- Other kinds of garbage collection could use some consideration.
 
 ## Contribute! ##
 
