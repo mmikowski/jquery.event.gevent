@@ -32,9 +32,7 @@ When this occurs, the data variable is passed as the second argument
 Changed manifests for jQuery plugin registry.
 
 ### Testing ###
-I have tested with jQuery 1.7.2 and 1.9.1, although
-not extensively. Be warned, there may be lurking bugs.
-I will be testing more extensively in the next few days.
+I have tested with jQuery 1.7.2 and 1.9.1.
 You may check out the test HTML page to see this in action.
 Make sure you have your JavaScript console open.
 
