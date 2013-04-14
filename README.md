@@ -1,10 +1,35 @@
 # jquery.event.gevent #
 
 ## Summary ##
+
 A plugin that provides the ability to have a jQuery *collection*
-subscribe to a *global custom event* and have a *function* handle
-the event when it occurs. This plugin is featured in the book
+subscribe a *function* to a *global custom event*.  This plugin is featured in the book
 [Single page web applications - JavaScript end-to-end](http://manning.com/mikowski).
+Methods are provided to **subscribe**, **publish**, and **unsubscribe**.
+
+## Example ##
+
+Let's say we have "widget rejects" in various panels in our web page that show how many
+widgets Acme Inc. has manufactured and rejected on a given day.  We receive instant messages
+from Acme's web service at any time that tells us the widget reject count.
+
+With this plugin you can just *publish* a `widget-reject` event and have all the panels
+update themselves:
+
+    // function to update reject panels
+    var onWidgetReject = function ( event, reject_count ) {
+      $( this ).text( reject_count );
+    };
+    
+    // collection of all panels in our page
+    var $panels = $( '.widget-reject-panel' );
+    
+    // subscribe to the 'widget-reject' event
+    $.gevent.subscribe( $panels, 'widget-reject', onWidgetReject );
+    
+    // publish the event
+    $.gevent.publish( 'widget-reject', 23 );
+
 
 ## Release Notes ##
 
@@ -26,33 +51,15 @@ When this occurs, the data variable is used as the second argument
 (after the event object) to the subscribed functions.
 
 ### Version 0.1.7-9 ###
+
 Changed manifests for jQuery plugin registry.
 
 ### Testing ###
+
 I have tested with jQuery 1.7.2 and 1.9.1.
 You may check out the test HTML page to see this in action.
 Make sure you have your JavaScript console open.
 
-## Examples ##
-
-### Subscribe to an event on '#msg' div ###
-    $.gevent.subscribe(
-      $( '#msg' ),             // jQuery selection
-      'spa-model-msg-receive', // Event name
-      onModelMsgReceive        // Handler function
-    );
-
-### Publish an event ###
-    $.gevent.publish(
-      'spa-model-msg-receive',
-      [ { user : 'fred', msg : 'Hi gang' } ]
-    );
-
-### Unsubscribe from event on the '#msg' div ###
-    $.gevent.unsubscribe(
-      $( '#msg' ),         // jQuery selection
-      'spa-model-msg-receive', // Event name
-    );
 
 ## Overview ##
 
@@ -209,6 +216,27 @@ event that has no subscribers, although by definition nothing will
 receive it.  Or if you publish an event and pass in something besides
 an array of arguments, it will convert it to an array.
 
+## More Examples ##
+
+### Subscribe to an event on '#msg' div ###
+    $.gevent.subscribe(
+      $( '#msg' ),             // jQuery selection
+      'spa-model-msg-receive', // Event name
+      onModelMsgReceive        // Handler function
+    );
+
+### Publish an event ###
+    $.gevent.publish(
+      'spa-model-msg-receive',
+      [ { user : 'fred', msg : 'Hi gang' } ]
+    );
+
+### Unsubscribe from event on the '#msg' div ###
+    $.gevent.unsubscribe(
+      $( '#msg' ),         // jQuery selection
+      'spa-model-msg-receive', // Event name
+    );
+
 ## Other notes ##
 
 This is a global plugin, and therefore does not offer chaining. For example:
@@ -225,12 +253,11 @@ Sorry about that :)
 
 ## See also ##
 
-The [multicast plugin](http://plugins.jquery.com/multicast/) is
-similar.
+The [multicast plugin](http://plugins.jquery.com/multicast/).
 
 ## TODO ##
 
-- Investigate out of date collections and remove them from the plugin
+- Investigate out-of-date collections and remove them from the plugin
   session storage. This can be done by looping through collections
   and checking `$collection.closest( 'body' ).length >= 1`
 
