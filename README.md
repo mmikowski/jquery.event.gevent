@@ -2,18 +2,19 @@
 
 ## Summary ##
 
-A plugin that provides the ability to have a jQuery *collection*
-subscribe a *function* to a *global custom event*.  This plugin is featured in the book
+A plugin that provides the ability to have a jQuery **collection**
+subscribe a **function** to a **global custom event**.  This plugin is featured in the book
 [Single page web applications - JavaScript end-to-end](http://manning.com/mikowski).
-Methods are provided to **subscribe**, **publish**, and **unsubscribe**.
+Methods include **subscribe**, **publish**, and **unsubscribe**.
 
 ## Example ##
 
-Let's say we have "widget rejects" in various panels in our web page that show how many
-widgets Acme Inc. has manufactured and rejected on a given day.  We receive instant messages
-from Acme's web service at any time that tells us the widget reject count.
+Let's say we display various panels in our web page that show how many
+widgets Acme Inc. has manufactured and rejected on a given day. We occassionaly
+receive a messages from Acme's web service that tells us the revised
+widget reject count.
 
-With this plugin you can just *publish* a `widget-reject` event and have all the panels
+With this plugin we can simply *publish* a `widget-reject` event and have all the panels
 update themselves:
 
     // function to update reject panels
@@ -27,9 +28,14 @@ update themselves:
     // subscribe to the 'widget-reject' event
     $.gevent.subscribe( $panels, 'widget-reject', onWidgetReject );
     
-    // publish the event
+    // publish the event (we now have 23 rejects)
     $.gevent.publish( 'widget-reject', 23 );
 
+This pub-sub mechanism is elegant and easy to create and maintain.  
+We can add or subtract panels at will.  Events published by a controller 
+may be used by many other modules without the tedium and tangle of callbacks.
+We have found it invaluable when building scalable Single Page web Applications
+(SPAs).
 
 ## Release Notes ##
 
