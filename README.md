@@ -63,7 +63,7 @@ jQuery *collections* subscribe a *function* to *global custom events*. This func
 - May receive additional arguments as provided by the *publish* invocation.
 - Sees the value of `this` as the element upon which the event was subscribed.  If, for example, we have `$('#msg')`*subscribe* to a *global custom event*, the value of `this` in the handler *function* will be the DOM element `<div id="msg">`.
 
-### Subcribptions and deleted DOM elements ###
+### Subscribptions and deleted DOM elements ###
 A jQuery **collection** may subscribe a **function** to a **global custom event**. If we *delete* the **collection** that had subscriptions, **no** subscribed functions will be executed for that collection.  **This is desired behavior**
 
 Let's say we want  `<div id='user'/>`, to show a username when a *name-change* event occurs. We can have the **collection** `$( '#user' )` subscribe the **function** `onNameChange` to a *global custom event* `name-change` like so:
