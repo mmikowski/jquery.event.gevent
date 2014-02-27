@@ -48,25 +48,37 @@
     //   which a subscribed handler will receive after the event object.
     // Arguments (positional)
     //   * 0 ( event_name )  - The global event name
-    //   * 2 ( data )        - Optional data to be passed as argument(s)
+    //   * 1 ( data )        - Optional data to be passed as argument(s)
     //                         to subscribed functions after the event
     //                         object. Provide an array for multiple
     //                         arguments.
     // Throws   : none
     // Returns  : none
     //
-    publishEvent = function ( event_name, data ) {
-      var data_list;
-
-      if ( ! $customSubMap[ event_name ] ){ return false; }
-
-      if ( data ){
+    publishEvent = function () {
+      var arg_list = [],
+        arg_count, event_name,
+        event_obj, data, data_list;
+  
+      arg_list  = arg_list.slice.call( arguments, 0 );
+      arg_count = arg_list.length;
+  
+      if ( arg_count === 0 ) { return false; }
+  
+      event_name = arg_list.shift();
+      event_obj  = $customSubMap[ event_name ];
+  
+      if ( ! event_obj ) { return false; }
+  
+      if ( arg_count > 1 ) {
+        data      = arg_list.shift();
         data_list = Array.isArray( data ) ? data : [ data ];
-        $customSubMap[ event_name ].trigger( event_name, data_list );
-        return true;
       }
-
-      $customSubMap[ event_name ].trigger( event_name );
+      else {
+        data_list = [];
+      }
+  
+      event_obj.trigger( event_name, data_list );
       return true;
     };
     // END public method /publishEvent/

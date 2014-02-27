@@ -42,12 +42,14 @@ Allows passing non-array data as second argument to publish. When this occurs, t
 ### Version 0.1.7-10 ###
 Changed manifests for jQuery plugin registry.
 
-### Testing ###
+### Version 0.2.0 ###
+Updated publish events so that falsie values (undefined, null, blank, 0)
+may be published as arguments.
 
+### Testing ###
 I have tested with jQuery 1.7.2 and 1.9.1. You may check out the test HTML page to see this in action. Make sure you have your JavaScript console open.
 
 ## Overview ##
-
 Jquery 1.8.x and lower supported global custom events. Apparently these were not officially supported and have been completely removed as of jQuery 1.9. I found this disappointing as I used global events as a robust mechanism to publish asynchronous changes from my model to the view. 
 
 I wrote this plugin to restore and improve this capability.
@@ -55,7 +57,6 @@ I wrote this plugin to restore and improve this capability.
 ## Discussion ##
 
 ### Function arguments ###
-
 jQuery *collections* subscribe a *function* to *global custom events*. This function:
 
 - Always receive the event object as the first argument.
@@ -63,7 +64,6 @@ jQuery *collections* subscribe a *function* to *global custom events*. This func
 - Sees the value of `this` as the element upon which the event was subscribed.  If, for example, we have `$('#msg')`*subscribe* to a *global custom event*, the value of `this` in the handler *function* will be the DOM element `<div id="msg">`.
 
 ### Subcribptions and deleted DOM elements ###
-
 A jQuery **collection** may subscribe a **function** to a **global custom event**. If we *delete* the **collection** that had subscriptions, **no** subscribed functions will be executed for that collection.  **This is desired behavior**
 
 Let's say we want  `<div id='user'/>`, to show a username when a *name-change* event occurs. We can have the **collection** `$( '#user' )` subscribe the **function** `onNameChange` to a *global custom event* `name-change` like so:
@@ -115,7 +115,6 @@ You may play along at home to see this happen. Let's open the an HTML page that 
 If we add `<div id='msg'/>` to the DOM after this example, we will need to resubscribe to the event if we want it to respond as before.
 
 ## Methods ##
-
 The methods documentation is extracted directly from the plugin source.
 
 ### $.gevent.publish ###
@@ -129,7 +128,7 @@ The methods documentation is extracted directly from the plugin source.
     //   which a subscribed handler will receive after the event object.
     // Arguments (positional)
     //   * 0 ( event_name )  - The global event name
-    //   * 2 ( data )        - Optional data to be passed as argument(s)
+    //   * 1 ( data )        - Optional data to be passed as argument(s)
     //                         to subscribed functions. Provide an array for
     //                         multiple arguments.
     // Throws   : none
@@ -195,7 +194,6 @@ Like many other plugins, this code does not throw exceptions. Instead, it does i
     );
 
 ## Other notes ##
-
 This is a global jQuery plugin, and therefore does not offer chaining. For example:
 
     // DOES NOT WORK:
@@ -209,11 +207,9 @@ This is a global jQuery plugin, and therefore does not offer chaining. For examp
 Sorry about that :)
 
 ## See also ##
-
 The [multicast plugin](http://plugins.jquery.com/multicast/).
 
 ## TODO ##
-
 - Investigate out-of-date collections and remove them from the plugin session storage. This can be done by looping through collections and checking `$collection.closest( 'body' ).length >= 1`.
 
 - Consider a resubscribe method.
@@ -223,7 +219,6 @@ The [multicast plugin](http://plugins.jquery.com/multicast/).
 - Other kinds of garbage collection could use some consideration.
 
 ## Contribute! ##
-
 If you want to help out, like all jQuery plugins this is hosted at
 GitHub.  Any improvements or suggestions are welcome!
 You can reach me at mike[dot]mikowski[at]gmail[dotcom].
