@@ -72,7 +72,7 @@
   
       if ( arg_count > 1 ) {
         data      = arg_list.shift();
-        data_list = Array.isArray( data ) ? data : [ data ];
+        data_list = $.isArray( data ) ? data : [ data ];
       }
       else {
         data_list = [];
