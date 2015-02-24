@@ -4,7 +4,7 @@
 A plugin that provides the ability to have a jQuery **collection** subscribe a **function** to a **global custom event**.  This plugin is featured in the book [Single page web applications - JavaScript end-to-end](http://manning.com/mikowski). Methods include **subscribe**, **publish**, and **unsubscribe**.
 
 ## Example ##
-Let's say we display various panels in our web page that show how many widgets Acme Inc. has manufactured and rejected on a given day. We occassionaly receive a messages from Acme's web service that tells us the revised widget reject count.
+Let's say we display various panels in our web page that show how many widgets Acme Inc. has manufactured and rejected on a given day. We occassionally receive a messages from Acme's web service that tells us the revised widget reject count.
 
 With this plugin we can simply *publish* a `widget-reject` event and have all the panels update themselves:
 
