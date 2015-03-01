@@ -13,8 +13,9 @@
  *          a non-array variable as the second argument
  *          to a subscribed function (the first argument
  *          is always the event object).
- *  0.1.7-10
+ *  0.1.7-10, 0.2.0
  *        - documentation changes
+ *  1.0   - cleaned-up logic
  *
 */
 
@@ -24,7 +25,7 @@
   regexp : true, sloppy  : true, vars     : false,
   white  : true
 */
-/*global jQuery */
+/*global jQuery*/
 
 (function ( $ ) {
   'use strict';
@@ -102,12 +103,12 @@
     subscribeEvent = function ( $collection, event_name, fn ) {
       $collection.on( event_name, fn );
 
-      if ( ! $customSubMap[ event_name ] ) {
-        $customSubMap[ event_name ] = $collection;
-      }
-      else {
+      if ( $customSubMap[ event_name ] ) {
         $customSubMap[ event_name ]
           = $customSubMap[ event_name ].add( $collection );
+      }
+      else {
+        $customSubMap[ event_name ] = $collection;
       }
     };
     // END public method /subscribeEvent/
