@@ -3,6 +3,21 @@
 ## Summary ##
 A plugin that provides the ability to have a jQuery **collection** subscribe a **function** to a **global custom event**.  This plugin is featured in the book [Single page web applications - JavaScript end-to-end](http://manning.com/mikowski). Methods include **subscribe**, **publish**, and **unsubscribe**.
 
+## Replace Backbone with something much more robust ##
+
+The plugin, used with a few other well-chosen tools, form a fantastic basis for a lean, easy to use SPA architecture as detailed in the [the book](http://manning.com/mikowski)(http://manning.com/mikowski).  Here are the recommended tools:
+
+- Model Events: This plugin uses the jQuery event mechanism, which eliminates having to manage two different event types.
+- Routing: Use [uriAnchor](https://github.com/mmikowski/urianchor/) for much more robust routing, including support to independent and dependent query arguments.
+- Data Model: Use [taffyDB](https://github.com/typicaljoe/taffydb/) for
+  superior and more flexible client side data management.
+- Templating: Use [Dust](http://linkedin.github.io/dustjs/) for much more useful templates that don't tempt you to intermingle display methods with application logic.
+- Touch interface: Use [Unified events](https://github.com/mmikowski/jquery.event.ue) to handle touch and mouse events.
+- AJAX: Use jQuery native AJAX methods.
+- Promises: Use jQuery native promise methods.
+
+This suite of tools has all the capabilities of modern framework libraries but, when used correctly, can vastly improve flexibility and testability. It leverages jQuery's excellent built-in tools instead of ignoring them!
+
 ## Example ##
 Let's say we display various panels in our web page that show how many widgets Acme Inc. has manufactured and rejected on a given day. We occassionally receive a messages from Acme's web service that tells us the revised widget reject count.
 
@@ -46,8 +61,13 @@ Changed manifests for jQuery plugin registry.
 Updated publish events so that falsie values (undefined, null, blank, 0)
 may be published as arguments.
 
+### Version 1.0.2 ###
+Reversed a negative if-else statement (easier to understand); updated tags to
+publish updates to jQuery plugins site.  Fixed documentation typos and listed
+this as part of the SPA stack.
+
 ### Testing ###
-I have tested with jQuery 1.7.2 and 1.9.1. You may check out the test HTML page to see this in action. Make sure you have your JavaScript console open.
+I have tested with jQuery 1.7.2, 1.9.1, and 2. You may check out the test HTML page to see this in action. Make sure you have your JavaScript console open.
 
 ## Overview ##
 Jquery 1.8.x and lower supported global custom events. Apparently these were not officially supported and have been completely removed as of jQuery 1.9. I found this disappointing as I used global events as a robust mechanism to publish asynchronous changes from my model to the view. 
