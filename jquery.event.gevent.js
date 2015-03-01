@@ -15,7 +15,7 @@
  *          is always the event object).
  *  0.1.7-10, 0.2.0
  *        - documentation changes
- *  1.0   - cleaned-up logic
+ *  1.0.1 - cleaned-up logic, bumped version
  *
 */
 

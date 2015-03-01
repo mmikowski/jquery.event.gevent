@@ -1,5 +1,5 @@
 { "name"     : "event.gevent",
-  "version"  : "1.0.0",
+  "version"  : "1.0.1",
   "title"    : "Global custom events",
   "author"   : {
     "name"  : "Michael S. Mikowski",
@@ -15,9 +15,10 @@
   ],
   "dependencies" : { "jquery" : ">=1.6.2" },
 
-  "description" : "Don't use Backbone with Underscore, use jQuery with the global events plugin ( + uriAnchor plugin, TaffyDB, and Dust).  Provides the ability to have a jQuery **collection** subscribe a **function** to a **global custom event**.  This plugin is featured in the book [Single page web applications - JavaScript end-to-end](http://manning.com/mikowski). Methods include **subscribe**, **publish**, and **unsubscribe**. This is similar to jQuery global custom events support which was removed from jQuery 1.9+.",
+  "description" : "Don't use Backbone with Underscore, use jQuery with the global events plugin ( with uriAnchor plugin, TaffyDB, and Dust).  Provides the ability to have a jQuery **collection** subscribe a **function** to a **global custom event**.  This plugin is featured in the book [Single page web applications - JavaScript end-to-end](http://manning.com/mikowski). Methods include **subscribe**, **publish**, and **unsubscribe**. This is similar to jQuery global custom events support which was removed from jQuery 1.9+.",
   "keywords" : [
-    "event", "events", "global", "custom", "bind", "publish", "subscribe"
+    "event", "events", "global", "custom", "bind", "publish", "subscribe",
+    "multi-cast", "multicast"
   ],
   "url"         : "https://github.com/mmikowski/jquery.event.gevent",
   "homepage"    : "https://github.com/mmikowski/jquery.event.gevent",
