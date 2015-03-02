@@ -29,7 +29,7 @@
 
 (function ( $ ) {
   'use strict';
-  $.gevent = ( function () {
+  $.gevent = (function () {
     //---------------- BEGIN MODULE SCOPE VARIABLES --------------
     var
       subscribeEvent, publishEvent, unsubscribeEvent,
