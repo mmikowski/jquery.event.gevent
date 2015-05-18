@@ -1,6 +1,6 @@
 {
   "name": "jquery.event.gevent",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Global events jQuery Plugin - use native jQuery events for SPA communication. Subcribe a function to a global event for each element in a jQuery collection. Used in numerous commercial SPAs and featured in a best-selling book on SPAs.",
   "main": "jquery.event.gevent.js",
   "scripts": {
