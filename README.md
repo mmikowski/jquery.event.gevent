@@ -277,7 +277,7 @@ this as part of the SPA stack.
 ### Versions 1.1.0 ###
 Updated documentation.
 
-### Versions 1.1.1 ###
+### Versions 1.1.2 ###
 Add keywords for jquery-plugin and environment:jquery
 
 ### Testing ###
