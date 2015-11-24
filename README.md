@@ -277,6 +277,9 @@ this as part of the SPA stack.
 ### Versions 1.1.0 ###
 Updated documentation.
 
+### Versions 1.1.1 ###
+Add keywords for jquery-plugin and environment:jquery
+
 ### Testing ###
 I have tested with jQuery 1.7.2, 1.9.1, and 2. You may check out the test
 HTML page to see this in action. Make sure you have your JavaScript console open.

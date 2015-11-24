@@ -16,6 +16,7 @@
  *  0.1.7-10, 0.2.0
  *        - documentation changes
  *  1.0.2 - cleaned-up logic, bumped version
+ *  1.1.1 - added keywords
  *
 */
 
