@@ -1,6 +1,10 @@
-# jquery.event.gevent #
+# jquery.event.gevent
+## Use libraries, not frameworks
+This is a library that strives to be best-in-class.
+If you are considering using an SPA framework, please read [Do you
+really want an SPA framework?][0] first.
 
-## Summary ##
+## Summary
 A plugin that provides the capability to **publish**
 a **global custom event**.
 
@@ -9,8 +13,9 @@ a **jQuery collection** and a **function** to a
 **global custom event**.
 
 This plugin is featured in the
-book [Single page web applications - JavaScript end-to-end][1].
-Methods include **subscribe**, **publish**, and **unsubscribe**.
+book **Single Page Web Applications - JavaScript end-to-end**
+which is available from [Amazon][1] and directly from [Manning][2].
+Methods include `subscribe`, `publish`, and `unsubscribe`.
 
 Jquery 1.8.x and lower supported global custom events.
 These were not officially supported and have been completely removed
@@ -20,11 +25,10 @@ to the view.
 
 I wrote this plugin to restore and improve this capability.
 
-## Methods ##
-
+## Methods
 The methods documentation is extracted directly from the plugin source.
 
-### $.gevent.publish ###
+### $.gevent.publish
 
     // Example  :
     //   $.gevent.publish(
@@ -43,8 +47,7 @@ The methods documentation is extracted directly from the plugin source.
     // Returns  : none
     //
 
-### $.gevent.subscribe ###
-
+### $.gevent.subscribe
 You may **subscribe** a **jQuery collection** and a **function** to a
 **global custom event**.
 
@@ -58,7 +61,6 @@ for *each element* of the **jQuery collection**.  The invoked function:
   the value of `this` in the handler *function* may be the DOM element
   `<div class="msg">`.  If the collection contains 5 elements, the function
   will be invoked 5 times, once for each element in the collection.
-
 
     // Example  :
     //   $.gevent.subscribe(
@@ -76,7 +78,7 @@ for *each element* of the **jQuery collection**.  The invoked function:
     // Returns  : none
     //
 
-### $.gevent.unsubscribe ###
+### $.gevent.unsubscribe
 
     // BEGIN public method /unsubscribeEvent/
     // Example  :
@@ -93,8 +95,7 @@ for *each element* of the **jQuery collection**.  The invoked function:
     // Returns  : none
     //
 
-## Deleted DOM elements ##
-
+## Deleted DOM elements
 If we delete DOM elements that had subscriptions, **no** subscribed functions
 will be executed for that collection.  **This is desired behavior**
 
@@ -146,8 +147,7 @@ You may play along at home to see this happen. Let's open the an HTML page that 
 
 If we add `<div id='msg'/>` to the DOM after this example, we will need to resubscribe to the event if we want it to respond as before.
 
-## Example ##
-
+## Example
 Let's say we display various panels in our web page that show how many widgets Acme Inc. has manufactured and rejected on a given day. We occassionally receive a messages from Acme's web service that tells us the revised widget reject count.
 
 With this plugin we can simply *publish* a `widget-reject` event and have all the panels update themselves:
@@ -168,9 +168,8 @@ With this plugin we can simply *publish* a `widget-reject` event and have all th
 
 This pub-sub mechanism is elegant and easy to create and maintain. We can add or subtract panels at will.  Events published by a controller may be used by many other modules without the tedium and tangle of callbacks. We have found it invaluable when building scalable Single Page web Applications (SPAs).
 
-## More Examples ##
-
-### Subscribe to an event on '#msg' div ###
+## More Examples
+### Subscribe to an event on '#msg' div
 
     $.gevent.subscribe(
       $( '#msg' ),             // jQuery selection
@@ -178,22 +177,21 @@ This pub-sub mechanism is elegant and easy to create and maintain. We can add or
       onModelMsgReceive        // Handler function
     );
 
-### Publish an event ###
+### Publish an event
 
     $.gevent.publish(
       'spa-model-msg-receive',
       [ { user : 'fred', msg : 'Hi gang' } ]
     );
 
-### Unsubscribe from event on the '#msg' div ###
+### Unsubscribe from event on the '#msg' div
 
     $.gevent.unsubscribe(
       $( '#msg' ),         // jQuery selection
       'spa-model-msg-receive', // Event name
     );
 
-## Other notes ##
-
+## Other notes
 This is a global jQuery plugin, and therefore does not offer chaining. For example:
 
     // DOES NOT WORK:
@@ -206,90 +204,52 @@ This is a global jQuery plugin, and therefore does not offer chaining. For examp
 
 Sorry about that :)
 
-## Error handling ##
+## Error handling
+Like many other jQuery plugins, this code does not throw exceptions. Instead, it does its work quietly. For example, you may "publish" an event that has no subscribers, although by definition nothing will receive it. Or if you publish an event and pass in something besides an array of arguments, it will convert the variable into an array of one.
 
-Like many other plugins, this code does not throw exceptions. Instead, it does its work quietly. For example, you may "publish" an event that has no subscribers, although by definition nothing will receive it. Or if you publish an event and pass in something besides an array of arguments, it will convert the variable into an array of one.
-
-
-## Avoid complex 'SPA framework' libraries ##
-
-jQuery used with this and a few other well-chosen tools forms
-a fantastic basis for a lean, easy to use SPA architecture
-as detailed in [Single page web applications, JavaScript end-to-end][1].
-Here are the recommended tools:
-
-| Capability   | Tool                | Notes                             |
-| ------------ | ------------------- | ----------------------------------|
-| Websockets   | [Socket.io][6]      | Prefer websockets over AJAX.      |
-| AJAX         | jQuery native       | Use jQuery AJAX methods.          |
-| Promises     | jQuery native       | Use jQuery promise methods.       |
-| Model Events | [Global Events][2]  | jQuery plugin eliminates having   |
-|              |                     | to manage multiple event types.   |
-| Touch        | [Unified events][3] | Unify desktop and touch events.   |
-| Routing      | [uriAnchor][4]      | jQuery plugin for robust routing. |
-|              |                     | Includes support for dependent    |
-|              |                     | and independent query arguments.  |
-| Data Model   | [taffyDB][5]        | A powerful and flexible SQL-like  |
-|              |                     | client data management tool.      |
-| SVG          | [D3][7]             | Great for easy graphs and charts  |
-|              | [SVG][8]            | Low-level jQuery plugin           |
-| Templates    | [Dust][9]           | Uses a powerful template DSL that |
-|              |                     | minimizes chances to intemingle   |
-|              |                     | business and display logic.       |
-
-This suite of tools has all the capabilities of a bleeding-edge
-SPA "framework" library within the reliable and mature jQuery ecosystem.
-It can provide an application that is significantly more flexible and
-testable since display logic can easily be decoupled from business logic.
-Finally, it leverages jQuery's maturity, performance, and excellent
-tools instead of competing with them.
-
-## Release Notes ##
-
-### Copyright (c) ###
+## Release Notes
+### Copyright (c)
 2013-2015 Michael S. Mikowski (mike[dot]mikowski[at]gmail[dotcom])
 
-### License ###
+### License
 Dual licensed under the MIT or GPL Version 2
 http://jquery.org/license
 
-### Versions 0.1.0 - 0.1.5 ###
+### Versions 0.1.0 - 0.1.5
 This is the first release.  The reason there are multiple version
 numbers is I was getting up to speed on the jQuery plugin site.
 
-### Version 0.1.6 ###
+### Version 0.1.6
 Allows passing non-array data as second argument to publish.
 When this occurs, the data variable is used as the second argument
 (after the event object) to the subscribed functions.
 
-### Versions 0.1.7-10 ###
+### Versions 0.1.7-10
 Changed manifests for jQuery plugin registry.
 
-### Version 0.2.0 ###
+### Version 0.2.0
 Updated publish events so that falsie values (undefined, null, blank, 0)
 may be published as arguments.
 
-### Versions 1.0.2-3 ###
+### Versions 1.0.2-3
 Reversed a negative if-else statement (easier to understand); updated tags to
 publish updates to jQuery plugins site.  Fixed documentation typos and listed
 this as part of the SPA stack.
 
-### Versions 1.1.0 ###
+### Versions 1.1.0
 Updated documentation.
 
-### Versions 1.1.2 ###
+### Versions 1.1.2
 Add keywords for jquery-plugin and environment:jquery
 
-### Testing ###
+### Testing
 I have tested with jQuery 1.7.2, 1.9.1, and 2. You may check out the test
 HTML page to see this in action. Make sure you have your JavaScript console open.
 
-## See also ##
-
+## See also
 The [multicast plugin](http://plugins.jquery.com/multicast/).
 
-## TODO ##
-
+## TODO
 - Investigate out-of-date collections and remove them from the
   plugin session storage. This can be done by looping through
   collections and checking `$collection.closest( 'body' ).length >= 1`.
@@ -301,20 +261,12 @@ The [multicast plugin](http://plugins.jquery.com/multicast/).
 
 - Other kinds of garbage collection could use some consideration.
 
-## Contribute! ##
-
+## Contribute!
 If you want to help out, like all jQuery plugins this is hosted at
 GitHub.  Any improvements or suggestions are welcome!
 You can reach me at mike[dot]mikowski[at]gmail[dotcom].
 
-## END ##
-
-[1]:http://manning.com/mikowski
-[2]:https://github.com/mmikowski/jquery.event.gevent
-[3]:https://github.com/mmikowski/jquery.event.ue
-[4]:https://github.com/mmikowski/urianchor
-[5]:https://github.com/typicaljoe/taffydb
-[6]:http://socket.io
-[7]:https://github.com/mbostock/d3
-[8]:http://keith-wood.name/svg.html
-[9]:http://linkedin.github.io/dustjs
+## End
+[0]:http://mmikowski.github.io/no-frameworks
+[1]:http://www.amazon.com/dp/1617290750
+[2]:http://manning.com/mikowski
