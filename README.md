@@ -66,8 +66,7 @@ $.gevent.subscribe(
 ```
 
 #### Purpose
-You may **subscribe** a **jQuery collection** and a **function** from
-a **global custom event**.
+You may **subscribe** a **jQuery collection** and a **function** to a **global custom event**.
 
 Every time the **custom global event** occurs, the function is invoked
 for *each element* of the **jQuery collection**. The invoked function:
